@@ -26,7 +26,7 @@ func (controller *ControllerImpl) Create(w http.ResponseWriter, r *http.Request,
 	json.NewDecoder(r.Body).Decode(request)
 	response, err := controller.service.Create(r.Context(), request)
 	if err != nil {
-		webResponse := &web.WebResponse{
+		webResponse := &web.WebResponse[*web.Response]{
 			Code:    http.StatusBadRequest,
 			Status:  http.StatusText(400),
 			Message: "Error",
@@ -39,7 +39,7 @@ func (controller *ControllerImpl) Create(w http.ResponseWriter, r *http.Request,
 		return
 	}
 
-	webResponse := &web.WebResponse{
+	webResponse := &web.WebResponse[*web.Response]{
 		Code:    http.StatusCreated,
 		Status:  http.StatusText(http.StatusCreated),
 		Message: "Created",
@@ -55,7 +55,7 @@ func (controller *ControllerImpl) Create(w http.ResponseWriter, r *http.Request,
 func (controller *ControllerImpl) FindAll(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 	responses, err := controller.service.FindAll(r.Context())
 	if err != nil {
-		webResponses := &web.WebResponse{
+		webResponses := &web.WebResponse[*web.Response]{
 			Code:    http.StatusBadRequest,
 			Status:  http.StatusText(http.StatusBadRequest),
 			Message: "Error",
@@ -68,7 +68,7 @@ func (controller *ControllerImpl) FindAll(w http.ResponseWriter, r *http.Request
 		return
 	}
 
-	webResponses := &web.WebResponse{
+	webResponses := &web.WebResponse[[]*web.Response]{
 		Code:    http.StatusOK,
 		Status:  http.StatusText(http.StatusOK),
 		Message: "OK",
@@ -90,7 +90,7 @@ func (controller *ControllerImpl) FindById(w http.ResponseWriter, r *http.Reques
 
 	response, err := controller.service.FindById(r.Context(), id)
 	if err != nil {
-		webResponse := &web.WebResponse{
+		webResponse := &web.WebResponse[*web.Response]{
 			Code:    http.StatusBadRequest,
 			Status:  http.StatusText(http.StatusBadRequest),
 			Message: "Error",
@@ -103,7 +103,7 @@ func (controller *ControllerImpl) FindById(w http.ResponseWriter, r *http.Reques
 		return
 	}
 
-	webResponse := &web.WebResponse{
+	webResponse := &web.WebResponse[*web.Response]{
 		Code:    http.StatusOK,
 		Status:  http.StatusText(http.StatusOK),
 		Message: "OK",
@@ -129,7 +129,7 @@ func (controller *ControllerImpl) Update(w http.ResponseWriter, r *http.Request,
 
 	response, err := controller.service.Update(r.Context(), webRequest)
 	if err != nil {
-		webResponse := &web.WebResponse{
+		webResponse := &web.WebResponse[*web.Response]{
 			Code:    http.StatusBadRequest,
 			Status:  http.StatusText(http.StatusBadRequest),
 			Message: "Error",
@@ -142,7 +142,7 @@ func (controller *ControllerImpl) Update(w http.ResponseWriter, r *http.Request,
 		return
 	}
 
-	webResponse := &web.WebResponse{
+	webResponse := &web.WebResponse[*web.Response]{
 		Code:    http.StatusOK,
 		Status:  http.StatusText(http.StatusOK),
 		Message: "OK",
