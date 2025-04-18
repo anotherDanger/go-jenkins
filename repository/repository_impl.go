@@ -8,7 +8,7 @@ import (
 
 type RepositoryImpl struct{}
 
-func NewRepositoryImpl() *RepositoryImpl {
+func NewRepositoryImpl() Repository {
 	return &RepositoryImpl{}
 }
 

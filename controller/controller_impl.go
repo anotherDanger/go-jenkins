@@ -12,10 +12,10 @@ import (
 )
 
 type ControllerImpl struct {
-	service *service.ServiceImpl
+	service service.Service
 }
 
-func NewController(service *service.ServiceImpl) *ControllerImpl {
+func NewController(service service.Service) Controller {
 	return &ControllerImpl{
 		service: service,
 	}

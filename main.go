@@ -14,7 +14,7 @@ func NewServer(handler http.Handler) *http.Server {
 	}
 }
 
-func NewRouter(controller *controller.ControllerImpl) *httprouter.Router {
+func NewRouter(controller controller.Controller) *httprouter.Router {
 	router := httprouter.New()
 	router.POST("/v1/book", controller.Create)
 	router.GET("/v1/book", controller.FindAll)

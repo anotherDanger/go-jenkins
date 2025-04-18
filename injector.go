@@ -15,10 +15,11 @@ import (
 )
 
 var ServerSet = wire.NewSet(
-	repository.NewRepositoryImpl, wire.Bind(new(repository.Repository), new(*repository.RepositoryImpl)),
-	service.NewService, wire.Bind(new(service.Service), new(*service.ServiceImpl)),
-	controller.NewController, wire.Bind(new(controller.Controller), new(*controller.ControllerImpl)),
-	NewServer, wire.Bind(new(http.Handler), new(*httprouter.Router)),
+	repository.NewRepositoryImpl,
+	service.NewService,
+	controller.NewController,
+	NewServer,
+	wire.Bind(new(http.Handler), new(*httprouter.Router)),
 	NewRouter,
 	helper.NewDb,
 )
