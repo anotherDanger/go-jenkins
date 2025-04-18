@@ -155,7 +155,7 @@ func TestControllerUpdate(t *testing.T) {
 
 	req := httptest.NewRequest(http.MethodPut, "/v1/book/:id", reqByte)
 	rec := httptest.NewRecorder()
-
+	req.Header.Set("Content-Type", "application/json")
 	ctrl.Update(rec, req, httprouter.Params{httprouter.Param{
 		Key:   "id",
 		Value: "1",
@@ -165,4 +165,21 @@ func TestControllerUpdate(t *testing.T) {
 	json.NewDecoder(rec.Body).Decode(&webResponse)
 	assert.NoError(t, err)
 	assert.Equal(t, expectedResponse, webResponse.Data)
+}
+
+func TestControllerDelete(t *testing.T) {
+	svc := new(MockService)
+	ctrl := NewController(svc)
+
+	svc.On("Delete", mock.Anything, 1).Return(nil)
+
+	req := httptest.NewRequest(http.MethodDelete, "/v1/book/:id", nil)
+	rec := httptest.NewRecorder()
+
+	ctrl.Delete(rec, req, httprouter.Params{httprouter.Param{
+		Key:   "id",
+		Value: "1",
+	}})
+
+	assert.Equal(t, http.StatusNoContent, rec.Code)
 }
