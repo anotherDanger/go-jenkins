@@ -38,7 +38,7 @@ func (mock *MockRepository) Update(ctx context.Context, tx *sql.Tx, entity *doma
 
 func (mock *MockRepository) Delete(ctx context.Context, tx *sql.Tx, id int) error {
 	args := mock.Called(ctx, tx, id)
-	return args.Error(1)
+	return args.Error(0)
 }
 
 func TestServiceCreate(t *testing.T) {
@@ -145,4 +145,60 @@ func TestServiceFindById(t *testing.T) {
 
 	repo.AssertExpectations(t)
 
+}
+
+func TestServiceUpdate(t *testing.T) {
+	db, mockDB, err := sqlmock.New()
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer db.Close()
+
+	repo := new(MockRepository)
+	repo.On("Update", mock.Anything, mock.Anything, mock.AnythingOfType("*domain.Domain")).Return(&domain.Domain{
+		Id:     1,
+		Author: "update",
+		Title:  "test update",
+	}, nil)
+
+	mockDB.ExpectBegin()
+
+	request := &web.Request{
+		Id:     1,
+		Author: "update",
+		Title:  "test update",
+	}
+
+	svc := NewService(db, repo)
+	response, err := svc.Update(context.Background(), request)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	assert.NoError(t, err)
+	assert.Equal(t, 1, response.Id)
+	assert.Equal(t, "update", response.Author)
+	assert.Equal(t, "test update", response.Title)
+
+	repo.AssertExpectations(t)
+}
+
+func TestServiceDelete(t *testing.T) {
+	db, mockDB, err := sqlmock.New()
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	defer db.Close()
+	repo := new(MockRepository)
+	repo.On("Delete", mock.Anything, mock.Anything, 1).Return(nil, nil)
+
+	mockDB.ExpectBegin()
+	svc := NewService(db, repo)
+	if err := svc.Delete(context.Background(), 1); err != nil {
+		t.Fatal(err)
+	}
+
+	assert.NoError(t, err)
+	repo.AssertExpectations(t)
 }
