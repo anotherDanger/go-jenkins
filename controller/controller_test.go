@@ -128,3 +128,41 @@ func TestControllerFIndById(t *testing.T) {
 
 	assert.Equal(t, expectedResponse, webResponse.Data)
 }
+
+func TestControllerUpdate(t *testing.T) {
+	svc := new(MockService)
+	ctrl := NewController(svc)
+
+	reqBody := &web.Request{
+		Id:     1,
+		Author: "Update",
+		Title:  "Test Update",
+	}
+
+	expectedResponse := &web.Response{
+		Id:     1,
+		Author: "Update",
+		Title:  "Test Update",
+	}
+
+	svc.On("Update", mock.Anything, reqBody).Return(expectedResponse, nil)
+
+	bodyByte, err := json.Marshal(reqBody)
+	if err != nil {
+		t.Fatal(err)
+	}
+	reqByte := bytes.NewReader(bodyByte)
+
+	req := httptest.NewRequest(http.MethodPut, "/v1/book/:id", reqByte)
+	rec := httptest.NewRecorder()
+
+	ctrl.Update(rec, req, httprouter.Params{httprouter.Param{
+		Key:   "id",
+		Value: "1",
+	}})
+
+	var webResponse web.WebResponse[*web.Response]
+	json.NewDecoder(rec.Body).Decode(&webResponse)
+	assert.NoError(t, err)
+	assert.Equal(t, expectedResponse, webResponse.Data)
+}
