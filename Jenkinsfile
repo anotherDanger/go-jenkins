@@ -14,7 +14,7 @@ pipeline{
 
                 steps{
                     echo("Author: ${AUTHOR}")
-                    echo("App:" ${APP})
+                    echo("App: ${APP}")
                     echo("Job Name: ${env.JOB_NAME}")
                     echo("Node Labels: ${env.NODE_LABELS}")
                     echo("Branch Name: ${env.BRANCH_NAME}")
