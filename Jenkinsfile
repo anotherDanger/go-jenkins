@@ -9,9 +9,9 @@ pipeline{
                 }
 
                 steps{
-                    echo("Job Name: ${JOB_NAME}")
-                    echo("Node Labels: ${NODE_LABELS}")
-                    echo("Branch Name: ${BRANCH_NAME}")
+                    echo("Job Name: ${env.JOB_NAME}")
+                    echo("Node Labels: ${env.NODE_LABELS}")
+                    echo("Branch Name: ${env.BRANCH_NAME}")
                 }
             }
             stage('Build'){
