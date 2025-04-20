@@ -1,6 +1,19 @@
 pipeline{
     agent none
    stages{
+            stage('Information'){
+                agent{
+                    node{
+                        label 'golang && almalinux'
+                    }
+                }
+
+                steps{
+                    echo("Job Name: ${JOB_NAME}")
+                    echo("Node Labels: ${NODE_LABELS}")
+                    echo("Branch Name: ${BRANCH_NAME}")
+                }
+            }
             stage('Build'){
                 agent{
                     node{
