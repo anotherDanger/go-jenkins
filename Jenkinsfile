@@ -1,9 +1,9 @@
 pipeline{
     agent none
-   stages{
-        environment{
+    environment{
             AUTHOR = "andhika danger"
         }
+   stages{
             stage('Information'){
                 agent{
                     node{
