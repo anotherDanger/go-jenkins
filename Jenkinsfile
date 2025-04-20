@@ -1,5 +1,9 @@
 pipeline{
-   agent any
+   agent{
+    node{
+        labels 'golang && almalinux'
+    }
+   }
    stages{
             stage('Build'){
                 steps{
