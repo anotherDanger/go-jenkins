@@ -9,6 +9,9 @@ pipeline{
         booleanParam(name: 'DEPLOY', defaultValue: false, description: 'Need to deploy?')
         choice(name: 'SOCIAL', choices: ['Facebook', 'Instagram', 'X'], description: 'Social Media')
     }
+    triggers{
+        cron('* * * * *')
+    }
    stages{
             stage('Intro'){
                 agent{
