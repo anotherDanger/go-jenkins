@@ -1,7 +1,7 @@
 pipeline{
    agent{
     node{
-        labels 'golang && almalinux'
+        label 'golang && almalinux'
     }
    }
    stages{
