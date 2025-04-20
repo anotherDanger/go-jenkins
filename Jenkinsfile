@@ -16,4 +16,21 @@ pipeline{
                 }
             }
         }
+    post{
+        always{
+            echo("Starting........")
+        }
+
+        success{
+            echo("Completed, and success boss!")
+        }
+
+        failure{
+            echo("Build failed")
+        }
+
+        cleanup{
+            echo("End.")
+        }
+    }
 }
