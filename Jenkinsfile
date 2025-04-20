@@ -4,11 +4,25 @@ pipeline{
             AUTHOR = "andhika danger"
             APP = credentials("app")
         }
-    options{
-        disableConcurrentBuilds()
-        timeout(time: 15, unit: 'SECONDS')
+    parameters{
+        text(name: 'NAME', defaultValue: '', description: 'Describe who you are')
+        booleanParam(name: 'DEPLOY', defaultValue: false, description: 'Need to deploy?')
+        choice(name: 'SOCIAL', choices: ['Facebook', 'Instagram', 'X'], description: 'Social Media')
     }
    stages{
+            stage('Intro'){
+                agent{
+                    node{
+                        label 'golang && almalinux'
+                    }
+                }
+
+                steps{
+                    echo("Hello ${params.NAME}")
+                    echo("Time to deploy? ${params.DEPLOY}")
+                    echo("Your social media is ${params.SOCIAL}")
+                }
+            }
             stage('Information'){
                 agent{
                     node{
