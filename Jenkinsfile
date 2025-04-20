@@ -5,7 +5,8 @@ pipeline{
             APP = credentials("app")
         }
     triggers{
-        cron('* * * * *')
+        // cron('* * * * *')
+        pollSCM('* * * * *')
     }
    stages{
             stage('Information'){
