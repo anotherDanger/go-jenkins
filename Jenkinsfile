@@ -4,6 +4,9 @@ pipeline{
             AUTHOR = "andhika danger"
             APP = credentials("app")
         }
+    options{
+        timeout(time: 1, unit: 'HOURS')
+    }
    stages{
             stage('Information'){
                 agent{
