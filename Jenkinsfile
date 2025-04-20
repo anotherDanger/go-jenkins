@@ -45,6 +45,28 @@ pipeline{
                     sh 'go test ./repository ./service ./controller -cover'
                 }
             }
+            stage('Deploy'){
+                agent{
+                    node{
+                        label 'golang && almalinux'
+                    }
+                }
+
+                steps{
+                    input{
+                    message: "Can we deploy?"
+                    ok: "Yessir!"
+                    submitter: "anotherDanger"
+                    parameters{
+                        string(name: 'QA', defaultValue: 'Anonymous', description: 'Who r u?')
+                        choice(name: 'TARGET_ENV', choices: ['Development', 'Staging', 'Production'], description: 'Choose environment to deploy')
+                    }
+                    }
+                }
+                steps{
+                    echo("Deployed to ${TARGET_ENV}, approved by ${QA}")
+                }
+            }
         }
     post{
         always{
