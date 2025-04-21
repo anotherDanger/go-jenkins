@@ -25,33 +25,33 @@ pipeline{
                     echo("Branch Name: ${env.BRANCH_NAME}")
                 }
             }
-            stage('Preparation'){
-                matrix{
-                    agent{
-                        node{
-                            label 'golang && almalinux'
-                        }
-                    }
-                    axes{
-                        axis{
-                            name 'OS'
-                            values 'linux', 'windows', 'mac'
-                        }
+            // stage('Preparation'){
+            //     matrix{
+            //         agent{
+            //             node{
+            //                 label 'golang && almalinux'
+            //             }
+            //         }
+            //         axes{
+            //             axis{
+            //                 name 'OS'
+            //                 values 'linux', 'windows', 'mac'
+            //             }
 
-                        axis{
-                            name 'ARC'
-                            values '32', '64'
-                        }
-                    }
-                    stages{
-                        stage('Platform'){
-                            steps{
-                                echo("Run on ${OS} with ARC ${ARC}")
-                            }
-                        }
-                    }
-                }
-            }
+            //             axis{
+            //                 name 'ARC'
+            //                 values '32', '64'
+            //             }
+            //         }
+            //         stages{
+            //             stage('Platform'){
+            //                 steps{
+            //                     echo("Run on ${OS} with ARC ${ARC}")
+            //                 }
+            //             }
+            //         }
+            //     }
+            // }
             stage('Build'){
                 agent{
                     node{
