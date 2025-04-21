@@ -46,11 +46,6 @@ pipeline{
                 }
             }
             stage('Deploy'){
-                agent{
-                    node{
-                        label 'golang && almalinux'
-                    }
-                }
                 input{
                     message: "Can we deploy?"
                     ok: "Yessir!"
@@ -60,6 +55,11 @@ pipeline{
                         choice(name: 'TARGET_ENV', choices: ['Development', 'Staging', 'Production'], description: 'Choose environment to deploy')
                     }
                     }
+                 agent{
+                    node{
+                        label 'golang && almalinux'
+                    }
+                }
                 steps{
                     echo("Deployed to ${TARGET_ENV}, approved by ${QA}")
                 }
