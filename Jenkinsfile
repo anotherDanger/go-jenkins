@@ -4,10 +4,10 @@ pipeline{
             AUTHOR = "andhika danger"
             APP = credentials("app")
         }
-    triggers{
-        // cron('* * * * *')
-        pollSCM('* * * * *')
-    }
+    // triggers{
+    //     // cron('* * * * *')
+    //     pollSCM('* * * * *')
+    // }
    stages{
             stage('Information'){
                 agent{
