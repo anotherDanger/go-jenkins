@@ -26,12 +26,6 @@ pipeline{
                 }
             }
             stage('Preparation'){
-                agent{
-                    node{
-                        label 'golang && almalinux'
-                    }
-                }
-
                 parallel{
                     failFast true
                     stage('Go version'){
