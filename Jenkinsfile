@@ -45,19 +45,20 @@ pipeline{
                     sh 'go test ./repository ./service ./controller -cover'
                 }
             }
-             stage('Example') {
-            input {
-                message "Should we continue?"
-                ok "Yes, we should."
-                submitter "anotherDanger"
-                parameters {
-                    string(name: 'PERSON', defaultValue: 'Mr Jenkins', description: 'Who should I say hello to?')
+            stage('Deploy'){
+                input{
+                    message "Should we deploy?"
+                    ok "Yes"
+                    parameters{
+                        string(name: 'INPUT_NAME', defaultValue: 'guest', description: 'Your name sir?')
+                        choice(name: 'TARGET_ENV', choices: ['dev', 'stag', 'prod'], description: "Where?")
+                    }
+                }
+
+                steps{
+                    echo("Deployed to ${TARGET_ENV} by ${INPUT_NAME}")
                 }
             }
-            steps {
-                echo "Hello, ${PERSON}, nice to meet you."
-            }
-        }
         }
     post{
         always{
