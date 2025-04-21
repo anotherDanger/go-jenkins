@@ -32,16 +32,18 @@ pipeline{
                     }
                 }
 
-                stages('Go version'){
-                    steps{
-                        sh("go version")
+                stages{
+                    stage('Go version'){
+                        steps{
+                            sh 'go version'
+                        }
                     }
-                }
 
-                stages('Git version'){
-                   steps{
-                        sh("git version")
-                   }
+                    stage('Git version'){
+                        steps{
+                            sh 'git version'
+                        }
+                    }
                 }
             }
             stage('Build'){
