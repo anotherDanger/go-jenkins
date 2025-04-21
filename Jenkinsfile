@@ -49,12 +49,17 @@ pipeline{
                 input{
                     message "Should we deploy?"
                     ok "Yes"
+                    submitter "anotherDanger"
                     parameters{
                         string(name: 'INPUT_NAME', defaultValue: 'guest', description: 'Your name sir?')
                         choice(name: 'TARGET_ENV', choices: ['dev', 'stag', 'prod'], description: "Where?")
                     }
                 }
-
+                agent{
+                    node{
+                        label 'golang && almalinux'
+                    }
+                }
                 steps{
                     echo("Deployed to ${TARGET_ENV} by ${INPUT_NAME}")
                 }
