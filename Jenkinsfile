@@ -26,29 +26,28 @@ pipeline{
                 }
             }
             stage('Preparation'){
-                failFast true
-                parallel{
-                    stage('Go version'){
-                        agent{
-                            node {
-                                label 'golang && almalinux'
-                            }
-                        }
-
-                        steps{
-                            sh 'go version'
+                matrix{
+                    agent{
+                        node{
+                            label 'golang && almalinux'
                         }
                     }
-
-                    stage('Git version'){
-                        agent{
-                            node{                             
-                                label 'golang && almalinux'
-                            }
+                    axes{
+                        axis{
+                            name 'OS'
+                            value 'linux', 'windows', 'mac'
                         }
 
-                        steps{
-                            sh 'git version'
+                        axis{
+                            name 'ARC'
+                            value '32', '64'
+                        }
+                    }
+                    stages('Platform'){
+                        stage{
+                            steps{
+                                echo("Run on ${OS} with ARC ${ARC}")
+                            }
                         }
                     }
                 }
