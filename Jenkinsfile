@@ -60,6 +60,11 @@ pipeline{
                         label 'golang && almalinux'
                     }
                 }
+
+                when{
+                    environment name: 'TARGET_ENV', value: 'prod'
+                }
+
                 steps{
                     echo("Deployed to ${TARGET_ENV} by ${INPUT_NAME}")
                 }
