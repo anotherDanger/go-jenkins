@@ -42,10 +42,8 @@ pipeline{
 
                     stage('Git version'){
                         agent{
-                            node{
-                                label{
-                                    label 'golang && almalinux'
-                                }
+                            node{                             
+                                label 'golang && almalinux'
                             }
                         }
 
