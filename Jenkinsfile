@@ -43,8 +43,8 @@ pipeline{
                             values '32', '64'
                         }
                     }
-                    stages('Platform'){
-                        stage{
+                    stages{
+                        stage('Platform'){
                             steps{
                                 echo("Run on ${OS} with ARC ${ARC}")
                             }
