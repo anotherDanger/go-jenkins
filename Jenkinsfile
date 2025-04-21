@@ -26,8 +26,8 @@ pipeline{
                 }
             }
             stage('Preparation'){
+                failFast true
                 parallel{
-                    failFast true
                     stage('Go version'){
                         agent{
                             node {
