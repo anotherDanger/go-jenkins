@@ -32,14 +32,29 @@ pipeline{
                     }
                 }
 
-                stages{
+                parallel{
+                    failFast true
                     stage('Go version'){
+                        agent{
+                            node {
+                                label 'golang && almalinux'
+                            }
+                        }
+
                         steps{
                             sh 'go version'
                         }
                     }
 
                     stage('Git version'){
+                        agent{
+                            node{
+                                label{
+                                    label 'golang && almalinux'
+                                }
+                            }
+                        }
+
                         steps{
                             sh 'git version'
                         }
