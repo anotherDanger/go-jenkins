@@ -25,6 +25,25 @@ pipeline{
                     echo("Branch Name: ${env.BRANCH_NAME}")
                 }
             }
+            stage('Preparation'){
+                agent{
+                    node{
+                        label 'golang && almalinux'
+                    }
+                }
+
+                stages('Go version'){
+                    steps{
+                        sh("go version")
+                    }
+                }
+
+                stages('Git version'){
+                   steps{
+                        sh("git version")
+                   }
+                }
+            }
             stage('Build'){
                 agent{
                     node{
