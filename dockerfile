@@ -6,6 +6,8 @@ WORKDIR /app
 
 COPY . .
 
+RUN go test ./repository ./service ./controller
+
 RUN go build -o main .
 
 FROM alpine:latest
