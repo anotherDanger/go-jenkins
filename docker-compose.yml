@@ -7,7 +7,7 @@ services:
     ports:
       - 3307:3306
     volumes:
-      - db_volumes:/var/lib/mysql
+      - db_volumes_jenkins:/var/lib/mysql
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
     networks:
       - go-app-jenkins
@@ -33,7 +33,7 @@ services:
       - db
 
 volumes:
-  db_volumes:
+  db_volumes_jenkins:
 networks:
   go-app-jenkins:
     driver: bridge
