@@ -20,7 +20,7 @@
 // }
 
 pipeline{
-    agent any{
+    agent any
         stages{
             stage('compose down'){
                 steps{
@@ -28,5 +28,4 @@ pipeline{
                 }
             }
         }
-    }
 }
