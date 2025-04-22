@@ -29,6 +29,8 @@ services:
       DB_USER: root
       DB_PASS: root
       DB_NAME: perpustakaan_new
+    depends_on:
+      - db
 
 volumes:
   db_volumes:
