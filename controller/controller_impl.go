@@ -29,7 +29,7 @@ func (controller *ControllerImpl) Create(w http.ResponseWriter, r *http.Request,
 		webResponse := &web.WebResponse[*web.Response]{
 			Code:    http.StatusBadRequest,
 			Status:  http.StatusText(400),
-			Message: "Error",
+			Message: err.Error(),
 			Data:    nil,
 		}
 
