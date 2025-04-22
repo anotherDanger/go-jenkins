@@ -17,6 +17,8 @@ services:
   go-alpine-app:
     image: go-alpine-app
     container_name: go-alpine-app
+    build: .
+    pull_policy: never
     ports:
       - 8081:8081
     networks:
