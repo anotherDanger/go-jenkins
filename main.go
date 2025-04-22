@@ -9,7 +9,7 @@ import (
 
 func NewServer(handler http.Handler) *http.Server {
 	return &http.Server{
-		Addr:    "localhost:8080",
+		Addr:    "0.0.0.0:8081",
 		Handler: handler,
 	}
 }

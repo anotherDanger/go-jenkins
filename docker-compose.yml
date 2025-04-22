@@ -1,0 +1,34 @@
+version: '3.8'
+
+services:
+  db:
+    image: mysql
+    container_name: db
+    ports:
+      - 3307:3306
+    volumes:
+      - db_volumes:/var/lib/mysql
+    networks:
+      - go-app-jenkins
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: perpustakaan_new
+  
+  go-alpine-app:
+    image: go-alpine-app
+    container_name: go-alpine-app
+    ports:
+      - 8081:8081
+    networks:
+      - go-app-jenkins
+    environment:
+      DB_HOST: db
+      DB_USER: root
+      DB_PASS: root
+      DB_NAME: perpustakaan_new
+
+volumes:
+  db_volumes:
+networks:
+  go-app-jenkins:
+    driver: bridge
